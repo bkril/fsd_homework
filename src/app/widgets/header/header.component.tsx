@@ -3,7 +3,6 @@
 import { MenuIcon } from "lucide-react";
 import { type FC, useEffect, useState } from "react";
 
-import { LogoComponent } from "@/app/shared/components/logo";
 import { WrapperComponent } from "@/app/shared/components/wrapper";
 import { Link } from "@/pkg/locale";
 import { cn } from "@/pkg/theme/lib/utils";
@@ -15,6 +14,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/pkg/theme/ui/drawer";
+import { IconAppLogo } from "@/app/shared/assets/icons/common";
 
 // interface
 interface IProps {}
@@ -53,7 +53,7 @@ const HeaderComponent: FC<Readonly<IProps>> = () => {
           },
         )}
       >
-        <LogoComponent />
+        <IconAppLogo width={48} height={48} />
 
         <div className="flex items-center gap-2">
           <Button asChild variant="outline" className="max-md:hidden">

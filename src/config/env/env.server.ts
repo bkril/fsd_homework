@@ -9,13 +9,17 @@ export const envServer = createEnv({
       .enum(["development", "production"])
       .optional()
       .default("development"),
-    JWT_SECRET: z.string().nonempty({ message: "JWT_SECRET is required" }),
+    DATABASE_URL: z.string().nonempty({ message: "DATABASE_URL is required" }),
+    BETTER_AUTH_SECRET: z
+      .string()
+      .nonempty({ message: "BETTER_AUTH_SECRET is required" }),
     REDIS_URL: z.string().optional(),
   },
   emptyStringAsUndefined: true,
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
-    JWT_SECRET: process.env.JWT_SECRET,
+    DATABASE_URL: process.env.DATABASE_URL,
+    BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
     REDIS_URL: process.env.REDIS_URL,
   },
 });

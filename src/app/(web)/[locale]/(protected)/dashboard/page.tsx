@@ -23,7 +23,7 @@ const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
   const data = await authServer.getSession();
 
   // render
-  return <main>Dashboard {data.user?.email}</main>;
+  return <main>Dashboard {data?.user?.email}</main>;
 };
 
 export default Page;

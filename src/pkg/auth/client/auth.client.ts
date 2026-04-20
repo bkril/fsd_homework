@@ -4,5 +4,5 @@ import { envClient } from "@/config/env";
 
 // auth client
 export const authClient = createAuthClient({
-  baseURL: `${envClient.NEXT_PUBLIC_CLIENT_API_URL}/v1/auth`,
+  baseURL: envClient.NEXT_PUBLIC_CLIENT_WEB_URL,
 });

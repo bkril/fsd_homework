@@ -21,7 +21,7 @@ const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
   setRequestLocale(locale);
 
   // render
-  return <SignComponent variant="sign-up" />;
+  return <SignComponent variant="register" />;
 };
 
 export default Page;

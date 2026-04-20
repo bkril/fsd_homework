@@ -1,11 +1,6 @@
-import dynamic from "next/dynamic";
 import { type FC, type ReactNode } from "react";
 
 import { HeaderComponent } from "@/app/widgets/header";
-
-const FooterComponent = dynamic(() =>
-  import("@/app/widgets/footer").then((mod) => mod.FooterComponent),
-);
 
 // interface
 interface IProps {
@@ -23,8 +18,6 @@ const LayoutComponent: FC<Readonly<IProps>> = (props) => {
       {type === "public" && <HeaderComponent />}
 
       {children}
-
-      {type === "public" && <FooterComponent />}
     </div>
   );
 };

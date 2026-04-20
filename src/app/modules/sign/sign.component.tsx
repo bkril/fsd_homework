@@ -1,6 +1,7 @@
 import { type FC } from "react";
 
 import {
+  IconAppLogo,
   IconAuthBackgroundShape,
   IconAuthLines,
 } from "@/app/shared/assets/icons/common";
@@ -15,20 +16,18 @@ import {
 } from "@/pkg/theme/ui/card";
 import { Separator } from "@/pkg/theme/ui/separator";
 
-import {
-  SignInFormComponent,
-  SignUpFormComponent,
-  SocialFormComponent,
-} from "./elements";
+import { LoginComponent, RegisterComponent } from "./elements";
 
 // interface
 interface IProps {
-  variant: "sign-in" | "sign-up";
+  variant: "login" | "register";
 }
 
 // component
 const SignComponent: FC<Readonly<IProps>> = (props) => {
   const { variant } = props;
+
+  const isLogin = variant === "login";
 
   // render
   return (
@@ -52,15 +51,15 @@ const SignComponent: FC<Readonly<IProps>> = (props) => {
         <Separator className="pointer-events-none absolute inset-x-0 top-0" />
 
         <CardHeader className="justify-center gap-6 text-center">
-          <span>Logo</span>
+          <IconAppLogo width={48} height={48} className="mx-auto" />
 
           <div>
             <CardTitle className="mb-1.5 text-2xl">
-              {variant === "sign-in" ? "Welcome Back" : "Welcome"}
+              {isLogin ? "Welcome Back" : "Welcome"}
             </CardTitle>
 
             <CardDescription className="text-base">
-              {variant === "sign-in"
+              {isLogin
                 ? "Please enter your details to sign in"
                 : "Please enter your details to sign up"}
             </CardDescription>
@@ -68,21 +67,7 @@ const SignComponent: FC<Readonly<IProps>> = (props) => {
         </CardHeader>
 
         <CardContent>
-          <SocialFormComponent />
-
-          <div className="mb-6 flex items-center gap-4">
-            <Separator className="flex-1" />
-
-            <p>or</p>
-
-            <Separator className="flex-1" />
-          </div>
-
-          {variant === "sign-in" ? (
-            <SignInFormComponent />
-          ) : (
-            <SignUpFormComponent />
-          )}
+          {isLogin ? <LoginComponent /> : <RegisterComponent />}
         </CardContent>
       </Card>
 
