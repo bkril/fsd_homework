@@ -11,7 +11,7 @@ import {
 import { InputComponent } from "@/app/shared/components/input";
 import { useUserStore } from "@/app/shared/store";
 import { authClient } from "@/pkg/auth/client";
-import { Link, useRouter } from "@/pkg/locale";
+import { Link } from "@/pkg/locale";
 import { toastService } from "@/pkg/theme/services/toast.service";
 import { Button } from "@/pkg/theme/ui/button";
 import { Checkbox } from "@/pkg/theme/ui/checkbox";
@@ -23,7 +23,6 @@ interface IProps {}
 
 // component
 const LoginComponent: FC<Readonly<IProps>> = () => {
-  const router = useRouter();
   const { setUserStore } = useUserStore();
 
   const [isPending, setIsPending] = useState(false);
@@ -47,7 +46,7 @@ const LoginComponent: FC<Readonly<IProps>> = () => {
       if (res?.user) {
         setUserStore({ user: res.user });
         toastService.success("Welcome back!");
-        router.push("/dashboard");
+        window.location.replace("/dashboard");
       } else {
         setIsPending(false);
         toastService.error(error?.message || "Invalid credentials");

@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import { setRequestLocale } from "next-intl/server";
 
+import { DashboardComponent } from "@/app/modules/dashboard";
 import { authServer } from "@/pkg/auth/server/auth.server";
 
 // metadata
@@ -23,7 +24,7 @@ const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
   const data = await authServer.getSession();
 
   // render
-  return <main>Dashboard {data?.user?.email}</main>;
+  return <DashboardComponent userName={data?.user?.name} />;
 };
 
 export default Page;
