@@ -45,7 +45,7 @@ const RegisterComponent: FC<Readonly<IProps>> = () => {
       if (res?.user) {
         setUserStore({ user: res.user });
         toastService.success("Account created!");
-        window.location.replace("/dashboard");
+        window.location.replace("/countries");
       } else {
         setIsPending(false);
         toastService.error(error?.message || "Something went wrong");

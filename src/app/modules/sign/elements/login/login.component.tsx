@@ -46,7 +46,7 @@ const LoginComponent: FC<Readonly<IProps>> = () => {
       if (res?.user) {
         setUserStore({ user: res.user });
         toastService.success("Welcome back!");
-        window.location.replace("/dashboard");
+        window.location.replace("/countries");
       } else {
         setIsPending(false);
         toastService.error(error?.message || "Invalid credentials");

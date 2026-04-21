@@ -57,7 +57,7 @@ const MainComponent: FC<Readonly<IProps>> = () => {
 
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Button asChild size="lg" className="h-12 px-8 font-semibold">
-            <Link href="/dashboard">Start exploring</Link>
+            <Link href="/countries">Start exploring</Link>
           </Button>
         </div>
 

@@ -3,8 +3,7 @@ import createMiddleware from "next-intl/middleware";
 
 import { routing } from "@/pkg/locale";
 
-// Edge-compatible session check — presence of session_token cookie is enough
-// (actual session validation happens server-side in protected pages)
+
 function getEdgeSession(req: NextRequest) {
   return (
     req.cookies.get("better-auth.session_token")?.value ||
@@ -41,7 +40,9 @@ export default async function proxy(req: NextRequest) {
 
   const isSignIn = strippedPath === "/sign-in";
   const isSignUp = strippedPath === "/sign-up";
-  const isProtectedRoute = strippedPath.startsWith("/dashboard");
+  const isProtectedRoute =
+    strippedPath.startsWith("/countries") ||
+    strippedPath.startsWith("/dashboard");
 
   const user = getEdgeSession(req);
 
@@ -50,7 +51,7 @@ export default async function proxy(req: NextRequest) {
   }
 
   if ((isSignIn || isSignUp) && user) {
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+    return NextResponse.redirect(new URL("/countries", req.url));
   }
 
   return i18nRes;
