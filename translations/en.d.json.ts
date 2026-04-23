@@ -2,6 +2,49 @@
 // See: https://next-intl.dev/docs/workflows/typescript#messages-arguments
 
 declare const messages: {
-  "project_name": "App Template"
+  "metadata": {
+    "title": "GeoWorld",
+    "description": "Explore countries and discover the world"
+  },
+  "nav": {
+    "explore_countries": "Explore countries",
+    "sign_in": "Sign in",
+    "dashboard": "Dashboard",
+    "menu": "Menu",
+    "language": "Language"
+  },
+  "sign": {
+    "login_title": "Welcome Back",
+    "login_description": "Please enter your details to sign in",
+    "register_title": "Welcome",
+    "register_description": "Please enter your details to sign up",
+    "email_label": "Email",
+    "password_label": "Password",
+    "name_label": "Full name",
+    "remember_me": "Remember me",
+    "forgot_password": "Forgot password?",
+    "sign_in_btn": "Sign in",
+    "create_account_btn": "Create account",
+    "no_account": "Don't have an account?",
+    "have_account": "Already have an account?",
+    "toast_welcome": "Welcome back!",
+    "toast_created": "Account created!",
+    "toast_invalid": "Invalid credentials",
+    "toast_error": "Something went wrong"
+  },
+  "validation": {
+    "email_invalid": "Invalid email address",
+    "password_required": "Password is required",
+    "name_min": "Name must be at least 2 characters",
+    "password_min": "Password must be at least 8 characters",
+    "password_max": "Password must be at most 20 characters"
+  },
+  "page_titles": {
+    "sign_in": "Sign In",
+    "sign_up": "Sign Up"
+  },
+  "logout": {
+    "sign_out": "Sign out"
+  }
 };
 export default messages;

@@ -1,1 +1,1 @@
-// add features here
+export { LanguageSwitcherComponent } from "./language-switcher";

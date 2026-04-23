@@ -1,20 +1,31 @@
 import { z } from "zod";
 
-// sign in schema
-export const signInSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(1, "Password is required"),
-});
+// validation message types
+interface IValidationMessages {
+  email_invalid: string;
+  password_required: string;
+  name_min: string;
+  password_min: string;
+  password_max: string;
+}
 
-// sign up schema
-export const signUpSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters")
-    .max(20, "Password must be at most 20 characters"),
-});
+// sign in schema factory
+export const createSignInSchema = (m: IValidationMessages) =>
+  z.object({
+    email: z.string().email(m.email_invalid),
+    password: z.string().min(1, m.password_required),
+  });
 
-export type TSignInSchema = z.infer<typeof signInSchema>;
-export type TSignUpSchema = z.infer<typeof signUpSchema>;
+// sign up schema factory
+export const createSignUpSchema = (m: IValidationMessages) =>
+  z.object({
+    name: z.string().min(2, m.name_min),
+    email: z.string().email(m.email_invalid),
+    password: z
+      .string()
+      .min(8, m.password_min)
+      .max(20, m.password_max),
+  });
+
+export type TSignInSchema = z.infer<ReturnType<typeof createSignInSchema>>;
+export type TSignUpSchema = z.infer<ReturnType<typeof createSignUpSchema>>;

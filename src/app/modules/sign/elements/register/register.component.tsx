@@ -1,11 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type FC, useState } from "react";
+import { useTranslations } from "next-intl";
+import { type FC, useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import {
-  signUpSchema,
+  createSignUpSchema,
   type TSignUpSchema,
 } from "@/app/modules/sign/sign.schema";
 import { InputComponent } from "@/app/shared/components/input";
@@ -21,12 +22,26 @@ interface IProps {}
 
 // component
 const RegisterComponent: FC<Readonly<IProps>> = () => {
+  const t = useTranslations("sign");
+  const tv = useTranslations("validation");
   const { setUserStore } = useUserStore();
 
   const [isPending, setIsPending] = useState(false);
 
+  const schema = useMemo(
+    () =>
+      createSignUpSchema({
+        email_invalid: tv("email_invalid"),
+        password_required: tv("password_required"),
+        name_min: tv("name_min"),
+        password_min: tv("password_min"),
+        password_max: tv("password_max"),
+      }),
+    [tv]
+  );
+
   const { control, handleSubmit } = useForm<TSignUpSchema>({
-    resolver: zodResolver(signUpSchema),
+    resolver: zodResolver(schema),
     defaultValues: { email: "", password: "", name: "" },
   });
 
@@ -44,15 +59,15 @@ const RegisterComponent: FC<Readonly<IProps>> = () => {
 
       if (res?.user) {
         setUserStore({ user: res.user });
-        toastService.success("Account created!");
+        toastService.success(t("toast_created"));
         window.location.replace("/countries");
       } else {
         setIsPending(false);
-        toastService.error(error?.message || "Something went wrong");
+        toastService.error(error?.message || t("toast_error"));
       }
     } catch (error: unknown) {
       setIsPending(false);
-      const message = error instanceof Error ? error.message : "Something went wrong";
+      const message = error instanceof Error ? error.message : t("toast_error");
       toastService.error(message);
     }
   });
@@ -66,7 +81,7 @@ const RegisterComponent: FC<Readonly<IProps>> = () => {
         render={({ field, fieldState: { invalid, error } }) => (
           <InputComponent
             {...field}
-            label="Full name"
+            label={t("name_label")}
             invalid={invalid}
             message={error?.message}
             placeholder="John Doe"
@@ -80,7 +95,7 @@ const RegisterComponent: FC<Readonly<IProps>> = () => {
         render={({ field, fieldState: { invalid, error } }) => (
           <InputComponent
             {...field}
-            label="Email"
+            label={t("email_label")}
             invalid={invalid}
             message={error?.message}
             type="email"
@@ -95,7 +110,7 @@ const RegisterComponent: FC<Readonly<IProps>> = () => {
         render={({ field, fieldState: { invalid, error } }) => (
           <InputComponent
             {...field}
-            label="Password"
+            label={t("password_label")}
             invalid={invalid}
             message={error?.message}
             type="password"
@@ -110,17 +125,17 @@ const RegisterComponent: FC<Readonly<IProps>> = () => {
         disabled={isPending}
       >
         {isPending ? <Spinner className="mr-2 h-4 w-4" /> : null}
-        Create account
+        {t("create_account_btn")}
       </Button>
 
       <p className="text-center text-sm text-muted-foreground">
-        Already have an account?{" "}
+        {t("have_account")}{" "}
         <Button
           asChild
           variant="link"
           className="h-auto p-0 text-sm font-semibold text-primary"
         >
-          <Link href="/sign-in">Sign in</Link>
+          <Link href="/sign-in">{t("sign_in_btn")}</Link>
         </Button>
       </p>
     </form>

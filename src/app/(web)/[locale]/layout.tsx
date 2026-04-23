@@ -1,18 +1,13 @@
 import { type Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { type FC, type ReactNode } from "react";
 
 import { EAssetImage } from "@/app/shared/interfaces";
 import { envClient } from "@/config/env";
-import { fontPrimary, fontSecondary } from "@/config/fonts";
 import { routing } from "@/pkg/locale";
 import { RestApiProvider } from "@/pkg/rest-api";
-import { ThemeProvider } from "@/pkg/theme";
-import { Toaster } from "@/pkg/theme/ui/sonner";
-
-import "@/config/styles/global.css";
 
 // interface
 interface IProps {
@@ -26,10 +21,13 @@ export const generateStaticParams = async () => {
 };
 
 // metadata
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = async (props: IProps): Promise<Metadata> => {
+  const { locale } = await props.params;
+  const t = await getTranslations({ locale, namespace: "metadata" });
+
   const favicon = EAssetImage.FAVICON;
-  const title = "Website";
-  const description = "Website";
+  const title = t("title");
+  const description = t("description");
   const ogImage = EAssetImage.OG_IMAGE;
 
   return {
@@ -62,6 +60,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
   };
 };
 
+
 // component
 const LocaleLayout: FC<Readonly<IProps>> = async (props: IProps) => {
   const { children, params } = props;
@@ -75,20 +74,9 @@ const LocaleLayout: FC<Readonly<IProps>> = async (props: IProps) => {
 
   // return
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body
-        className={`${fontPrimary.className} ${fontSecondary.variable} antialiased`}
-        suppressHydrationWarning
-      >
-        <ThemeProvider>
-          <NextIntlClientProvider>
-            <RestApiProvider>{children}</RestApiProvider>
-          </NextIntlClientProvider>
-
-          <Toaster position="top-center" duration={3000} />
-        </ThemeProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider>
+      <RestApiProvider>{children}</RestApiProvider>
+    </NextIntlClientProvider>
   );
 };
 

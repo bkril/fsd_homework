@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { type FC } from "react";
 
 import {
@@ -26,6 +27,7 @@ interface IProps {
 // component
 const SignComponent: FC<Readonly<IProps>> = (props) => {
   const { variant } = props;
+  const t = useTranslations("sign");
 
   const isLogin = variant === "login";
 
@@ -55,13 +57,11 @@ const SignComponent: FC<Readonly<IProps>> = (props) => {
 
           <div>
             <CardTitle className="mb-1.5 text-2xl">
-              {isLogin ? "Welcome Back" : "Welcome"}
+              {isLogin ? t("login_title") : t("register_title")}
             </CardTitle>
 
             <CardDescription className="text-base">
-              {isLogin
-                ? "Please enter your details to sign in"
-                : "Please enter your details to sign up"}
+              {isLogin ? t("login_description") : t("register_description")}
             </CardDescription>
           </div>
         </CardHeader>

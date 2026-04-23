@@ -1,8 +1,10 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { MenuIcon } from "lucide-react";
 import { type FC } from "react";
 
+import { LanguageSwitcherComponent } from "@/app/features/language-switcher";
 import { LogoutComponent } from "@/app/features/logout";
 import { useUserStore } from "@/app/shared/store";
 import { Link } from "@/pkg/locale";
@@ -21,6 +23,7 @@ interface IProps {}
 
 // component
 const HeaderMobileComponent: FC<Readonly<IProps>> = () => {
+  const t = useTranslations("nav");
   const { user } = useUserStore();
 
   const avatarFallback = user?.name
@@ -33,7 +36,7 @@ const HeaderMobileComponent: FC<Readonly<IProps>> = () => {
       <DrawerTrigger className="md:hidden" asChild>
         <Button variant="outline" size="icon">
           <MenuIcon />
-          <span className="sr-only">Menu</span>
+          <span className="sr-only">{t("menu")}</span>
         </Button>
       </DrawerTrigger>
 
@@ -41,12 +44,14 @@ const HeaderMobileComponent: FC<Readonly<IProps>> = () => {
         <DrawerHeader className="px-6">
           <DrawerTitle>
             <Button asChild variant="outline" className="w-full">
-              <Link href="/book-demo">Book a demo</Link>
+              <Link href="/countries">{t("explore_countries")}</Link>
             </Button>
           </DrawerTitle>
         </DrawerHeader>
 
         <div className="grid gap-4 px-6 pb-[80vh]">
+          <LanguageSwitcherComponent />
+
           {user ? (
             <>
               <div className="flex items-center gap-3 rounded-lg border p-3">
@@ -69,7 +74,7 @@ const HeaderMobileComponent: FC<Readonly<IProps>> = () => {
             </>
           ) : (
             <Button asChild className="w-full">
-              <Link href="/sign-in">Sign in</Link>
+              <Link href="/sign-in">{t("sign_in")}</Link>
             </Button>
           )}
         </div>

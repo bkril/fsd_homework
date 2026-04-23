@@ -1,11 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type FC, useState } from "react";
+import { useTranslations } from "next-intl";
+import { type FC, useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import {
-  signInSchema,
+  createSignInSchema,
   type TSignInSchema,
 } from "@/app/modules/sign/sign.schema";
 import { InputComponent } from "@/app/shared/components/input";
@@ -23,12 +24,26 @@ interface IProps {}
 
 // component
 const LoginComponent: FC<Readonly<IProps>> = () => {
+  const t = useTranslations("sign");
+  const tv = useTranslations("validation");
   const { setUserStore } = useUserStore();
 
   const [isPending, setIsPending] = useState(false);
 
+  const schema = useMemo(
+    () =>
+      createSignInSchema({
+        email_invalid: tv("email_invalid"),
+        password_required: tv("password_required"),
+        name_min: tv("name_min"),
+        password_min: tv("password_min"),
+        password_max: tv("password_max"),
+      }),
+    [tv]
+  );
+
   const { control, handleSubmit } = useForm<TSignInSchema>({
-    resolver: zodResolver(signInSchema),
+    resolver: zodResolver(schema),
     defaultValues: { email: "", password: "" },
   });
 
@@ -45,15 +60,15 @@ const LoginComponent: FC<Readonly<IProps>> = () => {
 
       if (res?.user) {
         setUserStore({ user: res.user });
-        toastService.success("Welcome back!");
+        toastService.success(t("toast_welcome"));
         window.location.replace("/countries");
       } else {
         setIsPending(false);
-        toastService.error(error?.message || "Invalid credentials");
+        toastService.error(error?.message || t("toast_invalid"));
       }
     } catch (error: unknown) {
       setIsPending(false);
-      const message = error instanceof Error ? error.message : "Something went wrong";
+      const message = error instanceof Error ? error.message : t("toast_error");
       toastService.error(message);
     }
   });
@@ -67,7 +82,7 @@ const LoginComponent: FC<Readonly<IProps>> = () => {
         render={({ field, fieldState: { invalid, error } }) => (
           <InputComponent
             {...field}
-            label="Email"
+            label={t("email_label")}
             invalid={invalid}
             message={error?.message}
             type="email"
@@ -82,7 +97,7 @@ const LoginComponent: FC<Readonly<IProps>> = () => {
         render={({ field, fieldState: { invalid, error } }) => (
           <InputComponent
             {...field}
-            label="Password"
+            label={t("password_label")}
             invalid={invalid}
             message={error?.message}
             type="password"
@@ -98,7 +113,7 @@ const LoginComponent: FC<Readonly<IProps>> = () => {
             htmlFor="remember"
             className="cursor-pointer text-sm text-muted-foreground"
           >
-            Remember me
+            {t("remember_me")}
           </Label>
         </div>
 
@@ -108,7 +123,7 @@ const LoginComponent: FC<Readonly<IProps>> = () => {
           size="sm"
           className="h-auto p-0 text-sm text-primary"
         >
-          <Link href="/forgot-password">Forgot password?</Link>
+          <Link href="/forgot-password">{t("forgot_password")}</Link>
         </Button>
       </div>
 
@@ -118,17 +133,17 @@ const LoginComponent: FC<Readonly<IProps>> = () => {
         disabled={isPending}
       >
         {isPending ? <Spinner className="mr-2 h-4 w-4" /> : null}
-        Sign in
+        {t("sign_in_btn")}
       </Button>
 
       <p className="text-center text-sm text-muted-foreground">
-        Don&apos;t have an account?{" "}
+        {t("no_account")}{" "}
         <Button
           asChild
           variant="link"
           className="h-auto p-0 text-sm font-semibold text-primary"
         >
-          <Link href="/sign-up">Create account</Link>
+          <Link href="/sign-up">{t("create_account_btn")}</Link>
         </Button>
       </p>
     </form>

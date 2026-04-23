@@ -1,6 +1,6 @@
 "use client";
 
-import { UserIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { type FC } from "react";
 
 import { LogoutComponent } from "@/app/features/logout";
@@ -23,6 +23,7 @@ interface IProps {}
 
 // component
 const UserNavComponent: FC<Readonly<IProps>> = () => {
+  const t = useTranslations("nav");
   const { user } = useUserStore();
 
   useInitUser();
@@ -33,7 +34,7 @@ const UserNavComponent: FC<Readonly<IProps>> = () => {
   if (!user) {
     return (
       <Button asChild className="max-md:hidden">
-        <Link href="/sign-in">Sign in</Link>
+        <Link href="/sign-in">{t("sign_in")}</Link>
       </Button>
     );
   }
@@ -63,8 +64,7 @@ const UserNavComponent: FC<Readonly<IProps>> = () => {
 
         <DropdownMenuItem asChild>
           <Link href="/dashboard" className="cursor-pointer">
-            <UserIcon className="mr-2 h-4 w-4" />
-            Dashboard
+            {t("dashboard")}
           </Link>
         </DropdownMenuItem>
 

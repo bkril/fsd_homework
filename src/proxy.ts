@@ -34,9 +34,11 @@ export default async function proxy(req: NextRequest) {
 
   const pathname = req.nextUrl.pathname;
 
-  // strip locale prefix (e.g. /en/dashboard → /dashboard)
-  const localeRegex = new RegExp(`^\\/(${routing.locales.join("|")})`);
-  const strippedPath = pathname.replace(localeRegex, "") || "/";
+  const localePrefix = new RegExp(`^\\/(${routing.locales.join("|")})`);
+  const strippedPath = pathname.replace(localePrefix, "") || "/";
+
+  const localeMatch = pathname.match(localePrefix);
+  const currentLocale = localeMatch ? localeMatch[1] : routing.defaultLocale;
 
   const isSignIn = strippedPath === "/sign-in";
   const isSignUp = strippedPath === "/sign-up";
@@ -47,11 +49,11 @@ export default async function proxy(req: NextRequest) {
   const user = getEdgeSession(req);
 
   if (isProtectedRoute && !user) {
-    return NextResponse.redirect(new URL("/sign-in", req.url));
+    return NextResponse.redirect(new URL(`/${currentLocale}/sign-in`, req.url));
   }
 
   if ((isSignIn || isSignUp) && user) {
-    return NextResponse.redirect(new URL("/countries", req.url));
+    return NextResponse.redirect(new URL(`/${currentLocale}/countries`, req.url));
   }
 
   return i18nRes;
