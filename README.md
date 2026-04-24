@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GeoWorld
+
+Explore detailed information about all 195 countries — geography, culture, population, economy and more.
+
+**Live demo:** [fsd-homework.vercel.app](https://fsd-homework.vercel.app)
+
+---
+
+## Features
+
+- Browse all countries with search and region filtering
+- Country detail pages — flag, capital, population, languages, currencies, bordering countries
+- Authentication (sign up / sign in) via better-auth
+- Internationalization — English and German (i18n via next-intl)
+- ISR for the countries list, SSR for detail pages
+- E2E tests with Playwright
+
+## Tech Stack
+
+| Category | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4, shadcn/ui |
+| Auth | better-auth |
+| Data fetching | TanStack React Query |
+| Forms | React Hook Form + Zod |
+| i18n | next-intl |
+| State | Zustand |
+| Database | PostgreSQL (pg) |
+| E2E testing | Playwright |
+| Architecture | Feature-Sliced Design (FSD) |
+
+## Architecture
+
+The project follows [Feature-Sliced Design](https://feature-sliced.design/) methodology:
+
+```
+src/
+├── app/
+│   ├── (web)/          # Next.js routing (pages, layouts)
+│   ├── modules/        # Core business logic
+│   ├── entities/       # API clients, React Query hooks, data models
+│   └── shared/         # Reusable hooks, stores, components
+├── config/             # Env vars, fonts, global styles
+└── pkg/                # Third-party integrations
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- PostgreSQL database
+- Yarn 4
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env.local` file:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+DATABASE_URL=postgresql://user:password@localhost:5432/dbname
+BETTER_AUTH_SECRET=your_secret
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
 
-## Learn More
+### Run development server
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+yarn dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## E2E Tests
 
-## Deploy on Vercel
+```bash
+# copy and fill in credentials for a test account
+cp .env.test .env.test.local
+# edit TEST_EMAIL and TEST_PASSWORD
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+yarn test:e2e
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Interactive Playwright UI
+yarn test:e2e:ui
+```
+
+Tests are located in `tests/e2e/flows/`.
