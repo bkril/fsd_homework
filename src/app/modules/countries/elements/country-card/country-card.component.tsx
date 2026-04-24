@@ -22,7 +22,7 @@ const CountryCardComponent: FC<Readonly<IProps>> = ({ country }) => {
   const population = new Intl.NumberFormat("en-US").format(country.population);
 
   return (
-    <Link href={`/countries/${country.cca3}`} className="group block h-full">
+    <Link href={`/countries/${country.cca3}`} className="group block h-full" data-testid="country-card">
       <Card className="h-full overflow-hidden border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:shadow-xl hover:shadow-black/20 group-hover:-translate-y-1">
         <div className="relative h-40 w-full overflow-hidden bg-white/5">
           <Image
@@ -35,7 +35,7 @@ const CountryCardComponent: FC<Readonly<IProps>> = ({ country }) => {
         </div>
 
         <CardHeader className="pb-2 pt-4">
-          <CardTitle className="line-clamp-1 text-base font-semibold text-white">
+          <CardTitle className="line-clamp-1 text-base font-semibold text-white" data-testid="country-name">
             {country.name.common}
           </CardTitle>
           {country.name.official !== country.name.common && (

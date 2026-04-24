@@ -87,6 +87,7 @@ const CountriesModule: FC = () => {
           <div className="relative max-w-sm flex-1">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
             <Input
+              data-testid="search-input"
               placeholder={t("search_placeholder")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -118,7 +119,6 @@ const CountriesModule: FC = () => {
           </div>
         )}
 
-        {/* Skeleton */}
         {isLoading && (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => (
@@ -127,7 +127,6 @@ const CountriesModule: FC = () => {
           </div>
         )}
 
-        {/* Empty */}
         {!isLoading && !isError && filtered.length === 0 && (
           <div className="py-20 text-center text-white/50">
             <Globe className="mx-auto mb-4 h-12 w-12 opacity-30" />
@@ -135,7 +134,6 @@ const CountriesModule: FC = () => {
           </div>
         )}
 
-        {/* Grid + Pagination */}
         {!isLoading && !isError && paginated.length > 0 && (
           <>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
