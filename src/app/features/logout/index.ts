@@ -1,2 +1,2 @@
-export { default as LogoutComponent } from "./ui/logout.component";
-export { useSignOut } from "./hooks";
+export { default as LogoutComponent } from "./logout.component";
+export { useSignOut } from "./use-sign-out.hook";

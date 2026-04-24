@@ -3,7 +3,7 @@
 import { LogOutIcon } from "lucide-react";
 import { type FC } from "react";
 
-import { useSignOut } from "@/app/features/logout/hooks";
+import { useSignOut } from "./use-sign-out.hook";
 import { Button } from "@/pkg/theme/ui/button";
 
 // interface

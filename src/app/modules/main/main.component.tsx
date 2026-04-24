@@ -1,20 +1,23 @@
 import { GlobeIcon, MapIcon, UsersIcon } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { type FC } from "react";
 
 import { WrapperComponent } from "@/app/shared/components/wrapper";
 import { Link } from "@/pkg/locale";
 import { Button } from "@/pkg/theme/ui/button";
 
-const STATS = [
-  { icon: GlobeIcon, value: "195", label: "Countries" },
-  { icon: UsersIcon, value: "8B+", label: "People" },
-  { icon: MapIcon, value: "7", label: "Continents" },
-] as const;
-
 // interface
 interface IProps {}
 
-const MainComponent: FC<Readonly<IProps>> = () => {
+const MainComponent: FC<Readonly<IProps>> = async () => {
+  const t = await getTranslations("main");
+
+  const STATS = [
+    { icon: GlobeIcon, value: "195", label: t("stat_countries") },
+    { icon: UsersIcon, value: "8B+", label: t("stat_people") },
+    { icon: MapIcon, value: "7", label: t("stat_continents") },
+  ] as const;
+
   return (
     <div className="relative flex min-h-screen flex-col overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -37,27 +40,26 @@ const MainComponent: FC<Readonly<IProps>> = () => {
       >
         <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary">
           <GlobeIcon className="h-3.5 w-3.5" />
-          Explore the world
+          {t("explore_badge")}
         </div>
 
         <div className="flex max-w-3xl flex-col gap-4">
           <h1 className="text-5xl font-bold leading-tight tracking-tight text-foreground sm:text-6xl lg:text-7xl">
-            Discover every{" "}
+            {t("hero_heading_start")}{" "}
             <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent">
-              country
+              {t("hero_heading_highlight")}
             </span>{" "}
-            on Earth
+            {t("hero_heading_end")}
           </h1>
 
           <p className="mx-auto max-w-xl text-lg leading-relaxed text-muted-foreground">
-            Explore detailed information about all 195 countries — geography,
-            culture, population, economy and much more in one place.
+            {t("hero_description")}
           </p>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Button asChild size="lg" className="h-12 px-8 font-semibold">
-            <Link href="/countries">Start exploring</Link>
+            <Link href="/countries">{t("cta_button")}</Link>
           </Button>
         </div>
 

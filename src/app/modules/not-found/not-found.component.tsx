@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { type FC } from "react";
 
 import { IconNotFound } from "@/app/shared/assets/icons/common";
@@ -9,7 +10,9 @@ import { Button } from "@/pkg/theme/ui/button";
 interface IProps {}
 
 // component
-const NotFound: FC<Readonly<IProps>> = () => {
+const NotFound: FC<Readonly<IProps>> = async () => {
+  const t = await getTranslations("not_found");
+
   // render
   return (
     <WrapperComponent
@@ -20,15 +23,13 @@ const NotFound: FC<Readonly<IProps>> = () => {
 
       <div className="grid items-center justify-items-center gap-6 text-center">
         <div className="grid gap-2">
-          <h4 className="text-2xl font-semibold">Page Not Found</h4>
+          <h4 className="text-2xl font-semibold">{t("title")}</h4>
 
-          <p className="text-muted-foreground">
-            We couldn&apos;t find the page you are looking for{" "}
-          </p>
+          <p className="text-muted-foreground">{t("description")}</p>
         </div>
 
         <Button asChild variant="outline" className="w-fit">
-          <Link href="/">Back to home page</Link>
+          <Link href="/">{t("back_home")}</Link>
         </Button>
       </div>
     </WrapperComponent>

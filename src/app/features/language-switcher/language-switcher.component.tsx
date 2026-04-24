@@ -1,13 +1,26 @@
 "use client";
 
+import { ChevronDownIcon, GlobeIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { type FC, useTransition } from "react";
 
 import { usePathname, useRouter } from "@/pkg/locale";
 import { Button } from "@/pkg/theme/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/pkg/theme/ui/dropdown-menu";
 
 // interface
 interface IProps {}
+
+// locales config
+const LOCALES = [
+  { code: "en", label: "EN", name: "English" },
+  { code: "de", label: "DE", name: "Deutsch" },
+] as const;
 
 // component
 const LanguageSwitcherComponent: FC<Readonly<IProps>> = () => {
@@ -25,28 +38,35 @@ const LanguageSwitcherComponent: FC<Readonly<IProps>> = () => {
 
   // render
   return (
-    <div className="flex items-center gap-1" aria-label={t("language")}>
-      <Button
-        variant={locale === "en" ? "default" : "ghost"}
-        size="sm"
-        className="h-8 w-10 px-0 text-xs font-semibold"
-        onClick={() => switchLocale("en")}
-        disabled={isPending || locale === "en"}
-        aria-current={locale === "en" ? "true" : undefined}
-      >
-        EN
-      </Button>
-      <Button
-        variant={locale === "de" ? "default" : "ghost"}
-        size="sm"
-        className="h-8 w-10 px-0 text-xs font-semibold"
-        onClick={() => switchLocale("de")}
-        disabled={isPending || locale === "de"}
-        aria-current={locale === "de" ? "true" : undefined}
-      >
-        DE
-      </Button>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="outline"
+          size="sm"
+          className="h-8 gap-1.5 px-3 text-xs font-semibold"
+          disabled={isPending}
+          aria-label={t("language")}
+        >
+          <GlobeIcon className="h-3.5 w-3.5" />
+          {locale.toUpperCase()}
+          <ChevronDownIcon className="h-3 w-3 opacity-60" />
+        </Button>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent align="end">
+        {LOCALES.map(({ code, label, name }) => (
+          <DropdownMenuItem
+            key={code}
+            onClick={() => switchLocale(code)}
+            disabled={locale === code}
+            className="gap-2"
+          >
+            <span className="w-6 text-xs font-semibold">{label}</span>
+            <span className="text-muted-foreground">{name}</span>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 

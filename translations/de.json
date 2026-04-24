@@ -42,5 +42,62 @@
   },
   "logout": {
     "sign_out": "Abmelden"
+  },
+  "main": {
+    "explore_badge": "Die Welt erkunden",
+    "hero_heading_start": "Entdecke jedes",
+    "hero_heading_highlight": "Land",
+    "hero_heading_end": "der Erde",
+    "hero_description": "Erkunde detaillierte Informationen über alle 195 Länder — Geografie, Kultur, Bevölkerung, Wirtschaft und vieles mehr an einem Ort.",
+    "cta_button": "Jetzt erkunden",
+    "stat_countries": "Länder",
+    "stat_people": "Menschen",
+    "stat_continents": "Kontinente"
+  },
+  "countries": {
+    "page_label": "Erkunden",
+    "page_title": "Länder der Welt",
+    "page_subtitle": "{filtered} von {total} Ländern",
+    "page_loading": "Lädt...",
+    "search_placeholder": "Länder, Hauptstädte suchen...",
+    "error_load": "Länder konnten nicht geladen werden. Bitte versuche es später erneut.",
+    "empty_message": "Keine Länder gefunden, die deiner Suche entsprechen.",
+    "timezones_more": "+{count} weitere",
+    "na": "k. A.",
+    "flag_alt": "Flagge von {name}",
+    "regions": {
+      "all": "Alle",
+      "africa": "Afrika",
+      "americas": "Amerika",
+      "asia": "Asien",
+      "europe": "Europa",
+      "oceania": "Ozeanien",
+      "antarctic": "Antarktis"
+    }
+  },
+  "country_detail": {
+    "back_button": "Zurück zur Länderliste",
+    "key_facts": "Wichtige Fakten",
+    "capital": "Hauptstadt",
+    "population": "Bevölkerung",
+    "area": "Fläche",
+    "timezones": "Zeitzonen",
+    "timezones_more": "+{count} weitere",
+    "tld": "Top-Level-Domain",
+    "culture_economy": "Kultur & Wirtschaft",
+    "languages": "Sprachen",
+    "currencies": "Währungen",
+    "coordinates": "Koordinaten",
+    "continents": "Kontinente",
+    "bordering_countries": "Nachbarländer",
+    "independent": "Unabhängig",
+    "un_member": "UN-Mitglied",
+    "flag_alt": "Flagge von {name}",
+    "na": "k. A."
+  },
+  "not_found": {
+    "title": "Seite nicht gefunden",
+    "description": "Die gesuchte Seite konnte nicht gefunden werden",
+    "back_home": "Zurück zur Startseite"
   }
 }

@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import {
   Card,
   CardContent,
@@ -10,6 +10,7 @@ import {
 } from "@/pkg/theme/ui/card";
 import { Badge } from "@/pkg/theme/ui/badge";
 import { Users, MapPin } from "lucide-react";
+import { Link } from "@/pkg/locale";
 import type { ICountry } from "@/app/entities/models";
 
 interface IProps {
@@ -17,6 +18,7 @@ interface IProps {
 }
 
 const CountryCardComponent: FC<Readonly<IProps>> = ({ country }) => {
+  const t = useTranslations("countries");
   const population = new Intl.NumberFormat("en-US").format(country.population);
 
   return (
@@ -25,7 +27,7 @@ const CountryCardComponent: FC<Readonly<IProps>> = ({ country }) => {
         <div className="relative h-40 w-full overflow-hidden bg-white/5">
           <Image
             src={country.flags.svg || country.flags.png}
-            alt={country.flags.alt ?? `Flag of ${country.name.common}`}
+            alt={country.flags.alt ?? t("flag_alt", { name: country.name.common })}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -47,7 +49,7 @@ const CountryCardComponent: FC<Readonly<IProps>> = ({ country }) => {
           <div className="flex items-center gap-1.5 text-xs text-white/60">
             <MapPin className="h-3 w-3 shrink-0 text-blue-400" />
             <span className="line-clamp-1">
-              {country.capital?.join(", ") ?? "N/A"}
+              {country.capital?.join(", ") ?? t("na")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-white/60">

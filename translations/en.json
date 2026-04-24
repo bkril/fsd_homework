@@ -42,5 +42,62 @@
   },
   "logout": {
     "sign_out": "Sign out"
+  },
+  "main": {
+    "explore_badge": "Explore the world",
+    "hero_heading_start": "Discover every",
+    "hero_heading_highlight": "country",
+    "hero_heading_end": "on Earth",
+    "hero_description": "Explore detailed information about all 195 countries — geography, culture, population, economy and much more in one place.",
+    "cta_button": "Start exploring",
+    "stat_countries": "Countries",
+    "stat_people": "People",
+    "stat_continents": "Continents"
+  },
+  "countries": {
+    "page_label": "Explore",
+    "page_title": "Countries of the World",
+    "page_subtitle": "{filtered} of {total} countries",
+    "page_loading": "Loading...",
+    "search_placeholder": "Search countries, capitals...",
+    "error_load": "Failed to load countries. Please try again later.",
+    "empty_message": "No countries found matching your search.",
+    "timezones_more": "+{count} more",
+    "na": "N/A",
+    "flag_alt": "Flag of {name}",
+    "regions": {
+      "all": "All",
+      "africa": "Africa",
+      "americas": "Americas",
+      "asia": "Asia",
+      "europe": "Europe",
+      "oceania": "Oceania",
+      "antarctic": "Antarctic"
+    }
+  },
+  "country_detail": {
+    "back_button": "Back to countries",
+    "key_facts": "Key Facts",
+    "capital": "Capital",
+    "population": "Population",
+    "area": "Area",
+    "timezones": "Timezones",
+    "timezones_more": "+{count} more",
+    "tld": "Top-Level Domain",
+    "culture_economy": "Culture & Economy",
+    "languages": "Languages",
+    "currencies": "Currencies",
+    "coordinates": "Coordinates",
+    "continents": "Continents",
+    "bordering_countries": "Bordering Countries",
+    "independent": "Independent",
+    "un_member": "UN Member",
+    "flag_alt": "Flag of {name}",
+    "na": "N/A"
+  },
+  "not_found": {
+    "title": "Page Not Found",
+    "description": "We couldn't find the page you are looking for",
+    "back_home": "Back to home page"
   }
 }

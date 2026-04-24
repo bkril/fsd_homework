@@ -1,7 +1,8 @@
 import type { FC } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/pkg/locale";
 import { ArrowLeft, Globe, Users, MapPin, Clock, DollarSign, Languages } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Badge } from "@/pkg/theme/ui/badge";
 import { Button } from "@/pkg/theme/ui/button";
 import { Separator } from "@/pkg/theme/ui/separator";
@@ -11,20 +12,22 @@ interface IProps {
   country: ICountryDetail;
 }
 
-const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
+const CountryDetailModule: FC<Readonly<IProps>> = async ({ country }) => {
+  const t = await getTranslations("country_detail");
+
   const population = new Intl.NumberFormat("en-US").format(country.population);
   const area = new Intl.NumberFormat("en-US").format(country.area);
   const languages = country.languages
     ? Object.values(country.languages).join(", ")
-    : "N/A";
+    : t("na");
   const currencies = country.currencies
     ? Object.values(country.currencies)
         .map((c) => `${c.name} (${c.symbol})`)
         .join(", ")
-    : "N/A";
+    : t("na");
 
   return (
-    <div className="min-h-screen py-12">
+    <div className="min-h-screen pb-12 pt-[calc(88px+2rem)]">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         {/* Back button */}
         <div className="mb-8">
@@ -35,7 +38,7 @@ const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
           >
             <Link href="/countries">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to countries
+              {t("back_button")}
             </Link>
           </Button>
         </div>
@@ -46,7 +49,7 @@ const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
           <div className="relative h-60 w-full sm:h-80">
             <Image
               src={country.flags.svg || country.flags.png}
-              alt={country.flags.alt ?? `Flag of ${country.name.common}`}
+              alt={country.flags.alt ?? t("flag_alt", { name: country.name.common })}
               fill
               className="object-cover"
               priority
@@ -78,12 +81,12 @@ const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
               )}
               {country.independent && (
                 <Badge variant="outline" className="border-emerald-500/30 text-emerald-400">
-                  Independent
+                  {t("independent")}
                 </Badge>
               )}
               {country.unMember && (
                 <Badge variant="outline" className="border-blue-500/30 text-blue-400">
-                  UN Member
+                  {t("un_member")}
                 </Badge>
               )}
             </div>
@@ -91,15 +94,15 @@ const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {/* Key facts */}
               <div className="space-y-4">
-                <h2 className="text-lg font-semibold text-white">Key Facts</h2>
+                <h2 className="text-lg font-semibold text-white">{t("key_facts")}</h2>
 
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
                     <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-blue-400" />
                     <div>
-                      <p className="text-xs text-white/40">Capital</p>
+                      <p className="text-xs text-white/40">{t("capital")}</p>
                       <p className="text-sm text-white">
-                        {country.capital?.join(", ") ?? "N/A"}
+                        {country.capital?.join(", ") ?? t("na")}
                       </p>
                     </div>
                   </div>
@@ -107,7 +110,7 @@ const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
                   <div className="flex items-start gap-3">
                     <Users className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
                     <div>
-                      <p className="text-xs text-white/40">Population</p>
+                      <p className="text-xs text-white/40">{t("population")}</p>
                       <p className="text-sm text-white">{population}</p>
                     </div>
                   </div>
@@ -115,7 +118,7 @@ const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
                   <div className="flex items-start gap-3">
                     <Globe className="mt-0.5 h-4 w-4 shrink-0 text-purple-400" />
                     <div>
-                      <p className="text-xs text-white/40">Area</p>
+                      <p className="text-xs text-white/40">{t("area")}</p>
                       <p className="text-sm text-white">{area} km²</p>
                     </div>
                   </div>
@@ -123,11 +126,11 @@ const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
                   <div className="flex items-start gap-3">
                     <Clock className="mt-0.5 h-4 w-4 shrink-0 text-yellow-400" />
                     <div>
-                      <p className="text-xs text-white/40">Timezones</p>
+                      <p className="text-xs text-white/40">{t("timezones")}</p>
                       <p className="text-sm text-white">
                         {country.timezones.slice(0, 3).join(", ")}
                         {country.timezones.length > 3 &&
-                          ` +${country.timezones.length - 3} more`}
+                          ` ${t("timezones_more", { count: country.timezones.length - 3 })}`}
                       </p>
                     </div>
                   </div>
@@ -136,7 +139,7 @@ const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
                     <div className="flex items-start gap-3">
                       <Globe className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400" />
                       <div>
-                        <p className="text-xs text-white/40">Top-Level Domain</p>
+                        <p className="text-xs text-white/40">{t("tld")}</p>
                         <p className="text-sm text-white">{country.tld.join(", ")}</p>
                       </div>
                     </div>
@@ -147,14 +150,14 @@ const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
               {/* Culture & Economy */}
               <div className="space-y-4">
                 <h2 className="text-lg font-semibold text-white">
-                  Culture & Economy
+                  {t("culture_economy")}
                 </h2>
 
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
                     <Languages className="mt-0.5 h-4 w-4 shrink-0 text-pink-400" />
                     <div>
-                      <p className="text-xs text-white/40">Languages</p>
+                      <p className="text-xs text-white/40">{t("languages")}</p>
                       <p className="text-sm text-white">{languages}</p>
                     </div>
                   </div>
@@ -162,7 +165,7 @@ const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
                   <div className="flex items-start gap-3">
                     <DollarSign className="mt-0.5 h-4 w-4 shrink-0 text-orange-400" />
                     <div>
-                      <p className="text-xs text-white/40">Currencies</p>
+                      <p className="text-xs text-white/40">{t("currencies")}</p>
                       <p className="text-sm text-white">{currencies}</p>
                     </div>
                   </div>
@@ -170,7 +173,7 @@ const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
                   <div className="flex items-start gap-3">
                     <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-red-400" />
                     <div>
-                      <p className="text-xs text-white/40">Coordinates</p>
+                      <p className="text-xs text-white/40">{t("coordinates")}</p>
                       <p className="text-sm text-white">
                         {country.latlng[0].toFixed(2)}°,{" "}
                         {country.latlng[1].toFixed(2)}°
@@ -181,7 +184,7 @@ const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
                   <div className="flex items-start gap-3">
                     <Globe className="mt-0.5 h-4 w-4 shrink-0 text-teal-400" />
                     <div>
-                      <p className="text-xs text-white/40">Continents</p>
+                      <p className="text-xs text-white/40">{t("continents")}</p>
                       <p className="text-sm text-white">
                         {country.continents.join(", ")}
                       </p>
@@ -197,7 +200,7 @@ const CountryDetailModule: FC<Readonly<IProps>> = ({ country }) => {
                 <Separator className="my-6 bg-white/10" />
                 <div>
                   <h2 className="mb-3 text-lg font-semibold text-white">
-                    Bordering Countries
+                    {t("bordering_countries")}
                   </h2>
                   <div className="flex flex-wrap gap-2">
                     {country.borders.map((border) => (
