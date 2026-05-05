@@ -3,6 +3,7 @@ name: client-structure
 description: "Templates for creating entities, features, modules, and widgets in this Next.js 16 + FSD project. Use when adding a new FSD slice or integration."
 user-invocable: true
 allowed-tools: Read Bash Grep
+context: fork
 ---
 
 # Client Structure Templates
