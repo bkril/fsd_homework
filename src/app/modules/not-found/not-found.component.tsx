@@ -6,11 +6,8 @@ import { WrapperComponent } from "@/app/shared/components/wrapper";
 import { Link } from "@/pkg/locale";
 import { Button } from "@/pkg/theme/ui/button";
 
-// interface
-interface IProps {}
-
 // component
-const NotFound: FC<Readonly<IProps>> = async () => {
+const NotFound: FC = async () => {
   const t = await getTranslations("not_found");
 
   // render

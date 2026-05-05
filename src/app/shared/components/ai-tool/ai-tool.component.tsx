@@ -11,11 +11,8 @@ import { type FC, useRef } from "react";
 
 import { AnimatedBeam } from "@/pkg/theme/ui/animated-beam";
 
-// interface
-interface IProps {}
-
 // component
-const AIToolComponent: FC<Readonly<IProps>> = () => {
+const AIToolComponent: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const iconRef1 = useRef<HTMLDivElement>(null);

@@ -12,10 +12,9 @@ interface IProps {
 
 // component
 const Page: NextPage<Readonly<IProps>> = (props) => {
-  const { error } = props;
+  const { error, reset } = props;
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
     console.error(error);
   }, [error]);
 
@@ -27,7 +26,7 @@ const Page: NextPage<Readonly<IProps>> = (props) => {
 
         <button
           className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-white"
-          onClick={() => (window.location.href = "/")}
+          onClick={reset}
         >
           Go to Home
         </button>

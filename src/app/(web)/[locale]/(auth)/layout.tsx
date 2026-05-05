@@ -1,18 +1,16 @@
 import { type FC, type ReactNode } from "react";
 
-import { LayoutComponent } from "@/app/modules/layout";
-
 // interface
 interface IProps {
   children: ReactNode;
 }
 
 // component
-const ProtectedLayoutComponent: FC<Readonly<IProps>> = (props) => {
+const AuthLayoutComponent: FC<Readonly<IProps>> = (props) => {
   const { children } = props;
 
   // render
-  return <LayoutComponent type="protected">{children}</LayoutComponent>;
+  return <>{children}</>;
 };
 
-export default ProtectedLayoutComponent;
+export default AuthLayoutComponent;

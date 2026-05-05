@@ -1,0 +1,48 @@
+{
+  "permissions": {
+    "defaultMode": "plan",
+    "allow": [
+      "Bash(yarn dev)",
+      "Bash(yarn build)",
+      "Bash(yarn start)",
+      "Bash(yarn lint)",
+      "Bash(yarn test:e2e)",
+      "Bash(yarn test:e2e:ui)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(git status)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git branch *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git stash *)",
+      "Bash(git checkout *)",
+      "Bash(git fetch *)",
+      "Bash(git pull *)"
+    ],
+    "deny": [
+      "Bash(rm *)",
+      "Bash(rmdir *)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean *)",
+      "Bash(git commit --no-verify*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git commit*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "yarn lint > /dev/null 2>&1 || (echo 'ESLint failed. Fix errors before committing: yarn lint' >&2; exit 2)"
+          }
+        ]
+      }
+    ]
+  }
+}

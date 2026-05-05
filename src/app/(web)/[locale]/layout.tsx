@@ -4,7 +4,9 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { type FC, type ReactNode } from "react";
 
+import { LayoutComponent } from "@/app/modules/layout";
 import { EAssetImage } from "@/app/shared/interfaces";
+import { HeaderComponent } from "@/app/widgets/header";
 import { envClient } from "@/config/env";
 import { routing } from "@/pkg/locale";
 import { RestApiProvider } from "@/pkg/rest-api";
@@ -75,7 +77,9 @@ const LocaleLayout: FC<Readonly<IProps>> = async (props: IProps) => {
   // return
   return (
     <NextIntlClientProvider>
-      <RestApiProvider>{children}</RestApiProvider>
+      <RestApiProvider>
+        <LayoutComponent header={<HeaderComponent />}>{children}</LayoutComponent>
+      </RestApiProvider>
     </NextIntlClientProvider>
   );
 };

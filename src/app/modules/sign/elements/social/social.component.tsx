@@ -5,11 +5,8 @@ import { type FC } from "react";
 
 import { Button } from "@/pkg/theme/ui/button";
 
-// interface
-interface IProps {}
-
 // component
-const SocialComponent: FC<Readonly<IProps>> = () => {
+const SocialComponent: FC = () => {
   // render
   return (
     <div className="mb-5 flex items-center gap-2.5">

@@ -18,11 +18,8 @@ import {
   DropdownMenuTrigger,
 } from "@/pkg/theme/ui/dropdown-menu";
 
-// interface
-interface IProps {}
-
 // component
-const UserNavComponent: FC<Readonly<IProps>> = () => {
+const UserNavComponent: FC = () => {
   const t = useTranslations("nav");
   const { user } = useUserStore();
 

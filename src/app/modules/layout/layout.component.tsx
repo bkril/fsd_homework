@@ -1,21 +1,24 @@
-import { type FC, type ReactNode } from "react";
+"use client";
 
-import { HeaderComponent } from "@/app/widgets/header";
+import { usePathname } from "@/pkg/locale";
+import { type FC, type ReactNode } from "react";
 
 // interface
 interface IProps {
   children: ReactNode;
-  type: "public" | "protected";
+  header: ReactNode;
 }
 
 // component
 const LayoutComponent: FC<Readonly<IProps>> = (props) => {
-  const { children, type } = props;
+  const { children, header } = props;
+  const pathname = usePathname();
+  const isAuthPage = pathname.includes("/sign-in") || pathname.includes("/sign-up");
 
   // render
   return (
     <div className="relative z-0">
-      {type === "public" && <HeaderComponent />}
+      {!isAuthPage && header}
 
       {children}
     </div>

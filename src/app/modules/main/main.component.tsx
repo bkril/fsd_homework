@@ -6,10 +6,7 @@ import { WrapperComponent } from "@/app/shared/components/wrapper";
 import { Link } from "@/pkg/locale";
 import { Button } from "@/pkg/theme/ui/button";
 
-// interface
-interface IProps {}
-
-const MainComponent: FC<Readonly<IProps>> = async () => {
+const MainComponent: FC = async () => {
   const t = await getTranslations("main");
 
   const STATS = [

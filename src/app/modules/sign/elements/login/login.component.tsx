@@ -19,11 +19,8 @@ import { Checkbox } from "@/pkg/theme/ui/checkbox";
 import { Label } from "@/pkg/theme/ui/label";
 import { Spinner } from "@/pkg/theme/ui/spinner";
 
-// interface
-interface IProps {}
-
 // component
-const LoginComponent: FC<Readonly<IProps>> = () => {
+const LoginComponent: FC = () => {
   const t = useTranslations("sign");
   const tv = useTranslations("validation");
   const { setUserStore } = useUserStore();

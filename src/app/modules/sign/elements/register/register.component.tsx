@@ -17,11 +17,8 @@ import { toastService } from "@/pkg/theme/services/toast.service";
 import { Button } from "@/pkg/theme/ui/button";
 import { Spinner } from "@/pkg/theme/ui/spinner";
 
-// interface
-interface IProps {}
-
 // component
-const RegisterComponent: FC<Readonly<IProps>> = () => {
+const RegisterComponent: FC = () => {
   const t = useTranslations("sign");
   const tv = useTranslations("validation");
   const { setUserStore } = useUserStore();

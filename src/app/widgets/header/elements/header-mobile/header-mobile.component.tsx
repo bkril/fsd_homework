@@ -18,11 +18,8 @@ import {
   DrawerTrigger,
 } from "@/pkg/theme/ui/drawer";
 
-// interface
-interface IProps {}
-
 // component
-const HeaderMobileComponent: FC<Readonly<IProps>> = () => {
+const HeaderMobileComponent: FC = () => {
   const t = useTranslations("nav");
   const { user } = useUserStore();
 

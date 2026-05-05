@@ -3,7 +3,7 @@
 import { Globe, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { FC } from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useCountriesQuery } from "@/app/entities/api";
 import { Badge } from "@/pkg/theme/ui/badge";
@@ -54,9 +54,15 @@ const CountriesModule: FC = () => {
     });
   }, [countries, search, selectedRegion]);
 
-  useEffect(() => {
+  const handleSearch = (value: string) => {
+    setSearch(value);
     setPage(1);
-  }, [search, selectedRegion]);
+  };
+
+  const handleRegion = (region: Region) => {
+    setSelectedRegion(region);
+    setPage(1);
+  };
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const paginated = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
@@ -90,7 +96,7 @@ const CountriesModule: FC = () => {
               data-testid="search-input"
               placeholder={t("search_placeholder")}
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => handleSearch(e.target.value)}
               className="border-white/10 bg-white/5 pl-9 text-white placeholder:text-white/30 focus-visible:border-blue-500/50 focus-visible:ring-blue-500/20"
             />
           </div>
@@ -105,7 +111,7 @@ const CountriesModule: FC = () => {
                     ? "bg-blue-600 text-white hover:bg-blue-700"
                     : "border-white/20 bg-transparent text-white/60 hover:border-white/40 hover:text-white"
                 }`}
-                onClick={() => setSelectedRegion(region)}
+                onClick={() => handleRegion(region)}
               >
                 {getRegionLabel(region)}
               </Badge>

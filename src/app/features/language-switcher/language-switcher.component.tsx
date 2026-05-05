@@ -13,9 +13,6 @@ import {
   DropdownMenuTrigger,
 } from "@/pkg/theme/ui/dropdown-menu";
 
-// interface
-interface IProps {}
-
 // locales config
 const LOCALES = [
   { code: "en", label: "EN", name: "English" },
@@ -23,7 +20,7 @@ const LOCALES = [
 ] as const;
 
 // component
-const LanguageSwitcherComponent: FC<Readonly<IProps>> = () => {
+const LanguageSwitcherComponent: FC = () => {
   const t = useTranslations("nav");
   const locale = useLocale();
   const pathname = usePathname();

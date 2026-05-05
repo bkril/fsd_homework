@@ -6,7 +6,9 @@ interface IProps {
 }
 
 // component
-const WebLayout: FC<Readonly<IProps>> = ({ children }) => {
+const WebLayout: FC<Readonly<IProps>> = (props) => {
+  const { children } = props;
+
   return children;
 };
 

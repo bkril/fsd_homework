@@ -12,11 +12,8 @@ import {
   UserNavComponent,
 } from "./elements";
 
-// interface
-interface IProps {}
-
 // component
-const HeaderComponent: FC<Readonly<IProps>> = () => {
+const HeaderComponent: FC = () => {
   const t = useTranslations("nav");
 
   // render

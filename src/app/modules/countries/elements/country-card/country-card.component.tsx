@@ -17,7 +17,8 @@ interface IProps {
   country: ICountry;
 }
 
-const CountryCardComponent: FC<Readonly<IProps>> = ({ country }) => {
+const CountryCardComponent: FC<Readonly<IProps>> = (props) => {
+  const { country } = props;
   const t = useTranslations("countries");
   const population = new Intl.NumberFormat("en-US").format(country.population);
 
