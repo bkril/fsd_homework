@@ -12,7 +12,9 @@ interface IProps {
   country: ICountryDetail;
 }
 
-const CountryDetailModule: FC<Readonly<IProps>> = async ({ country }) => {
+const CountryDetailModule: FC<Readonly<IProps>> = async (props) => {
+  const { country } = props;
+
   const t = await getTranslations("country_detail");
 
   const population = new Intl.NumberFormat("en-US").format(country.population);
@@ -26,6 +28,7 @@ const CountryDetailModule: FC<Readonly<IProps>> = async ({ country }) => {
         .join(", ")
     : t("na");
 
+  // render
   return (
     <div className="min-h-screen pb-12 pt-[calc(88px+2rem)]">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">

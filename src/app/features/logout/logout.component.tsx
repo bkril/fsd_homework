@@ -14,6 +14,7 @@ interface IProps {
 // component
 const LogoutComponent: FC<Readonly<IProps>> = (props) => {
   const { variant = "default" } = props;
+
   const { signOut } = useSignOut();
 
   // render

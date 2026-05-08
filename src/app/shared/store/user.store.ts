@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 
 // interface
 interface IUser {
@@ -20,12 +20,23 @@ interface IStore extends IState {
 // store
 export const useUserStore = create<IStore>()(
   devtools(
-    (set) => ({
-      user: null,
-      setUserStore: (value: Partial<IState>) =>
-        set((state: IState) => ({ ...state, ...value })),
-      clearUserStore: () => set({ user: null }),
-    }),
+    persist(
+      (set) => ({
+        user: null,
+        setUserStore: (value: Partial<IState>) =>
+          set((state: IState) => ({ ...state, ...value })),
+        clearUserStore: () => set({ user: null }),
+      }),
+      {
+        name: "user-store",
+        version: 1,
+        partialize: (state) => ({ user: state.user }),
+        migrate: (persisted, version) => {
+          if (version < 1) return { user: null };
+          return persisted as IState;
+        },
+      },
+    ),
     {
       name: "user-store",
       enabled:

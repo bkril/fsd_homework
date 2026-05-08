@@ -1,4 +1,4 @@
-import { GlobeIcon, MapIcon, UsersIcon } from "lucide-react";
+import { GlobeIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { type FC } from "react";
 
@@ -6,15 +6,14 @@ import { WrapperComponent } from "@/app/shared/components/wrapper";
 import { Link } from "@/pkg/locale";
 import { Button } from "@/pkg/theme/ui/button";
 
+import { getMainStats } from "./services";
+
 const MainComponent: FC = async () => {
   const t = await getTranslations("main");
 
-  const STATS = [
-    { icon: GlobeIcon, value: "195", label: t("stat_countries") },
-    { icon: UsersIcon, value: "8B+", label: t("stat_people") },
-    { icon: MapIcon, value: "7", label: t("stat_continents") },
-  ] as const;
+  const stats = getMainStats(t);
 
+  // render
   return (
     <div className="relative flex min-h-screen flex-col overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -22,14 +21,7 @@ const MainComponent: FC = async () => {
         <div className="absolute bottom-0 right-0 h-[400px] w-[400px] translate-x-1/3 translate-y-1/3 rounded-full bg-violet-500/5 blur-[100px]" />
       </div>
 
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.02]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
-        }}
-      />
+      <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.02] bg-[image:linear-gradient(rgba(255,255,255,0.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.8)_1px,transparent_1px)] bg-[length:72px_72px]" />
 
       <WrapperComponent
         type="main"
@@ -61,7 +53,7 @@ const MainComponent: FC = async () => {
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-12">
-          {STATS.map(({ icon: Icon, value, label }) => (
+          {stats.map(({ icon: Icon, value, label }) => (
             <div key={label} className="flex flex-col items-center gap-1.5">
               <div className="flex items-center gap-2">
                 <Icon className="h-4 w-4 text-primary" />

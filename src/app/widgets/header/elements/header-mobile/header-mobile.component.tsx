@@ -4,8 +4,8 @@ import { useTranslations } from "next-intl";
 import { MenuIcon } from "lucide-react";
 import { type FC } from "react";
 
-import { LanguageSwitcherComponent } from "@/app/features/language-switcher";
 import { LogoutComponent } from "@/app/features/logout";
+import { LanguageSwitcherComponent } from "@/app/shared/components/language-switcher";
 import { useUserStore } from "@/app/shared/store";
 import { Link } from "@/pkg/locale";
 import { Avatar, AvatarFallback } from "@/pkg/theme/ui/avatar";

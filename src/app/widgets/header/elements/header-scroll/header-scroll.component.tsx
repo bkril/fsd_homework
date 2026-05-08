@@ -13,6 +13,7 @@ interface IProps {
 // component
 const HeaderScrollComponent: FC<Readonly<IProps>> = (props) => {
   const { children } = props;
+
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {

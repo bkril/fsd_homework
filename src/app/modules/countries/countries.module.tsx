@@ -11,35 +11,16 @@ import { Button } from "@/pkg/theme/ui/button";
 import { Input } from "@/pkg/theme/ui/input";
 import { Skeleton } from "@/pkg/theme/ui/skeleton";
 
-import { CountryCardComponent } from "./elements";
-
-// constants
-const REGIONS = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania", "Antarctic"] as const;
-type Region = (typeof REGIONS)[number];
-
-const ITEMS_PER_PAGE = 24;
-
-// pagination helper
-const getPageNumbers = (page: number, total: number): (number | "...")[] => {
-  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
-
-  const pages: (number | "...")[] = [1];
-  if (page > 3) pages.push("...");
-  for (let i = Math.max(2, page - 1); i <= Math.min(total - 1, page + 1); i++) {
-    pages.push(i);
-  }
-  if (page < total - 2) pages.push("...");
-  pages.push(total);
-
-  return pages;
-};
+import { ITEMS_PER_PAGE, REGIONS, type TRegion } from "./countries.constant";
+import { CountryCardComponent } from "./elements/country-card";
+import { getPageNumbers } from "./services";
 
 // component
 const CountriesModule: FC = () => {
   const t = useTranslations("countries");
   const { data: countries, isLoading, isError } = useCountriesQuery();
   const [search, setSearch] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState<Region>("All");
+  const [selectedRegion, setSelectedRegion] = useState<TRegion>("All");
   const [page, setPage] = useState(1);
 
   const filtered = useMemo(() => {
@@ -59,7 +40,7 @@ const CountriesModule: FC = () => {
     setPage(1);
   };
 
-  const handleRegion = (region: Region) => {
+  const handleRegion = (region: TRegion) => {
     setSelectedRegion(region);
     setPage(1);
   };
@@ -67,8 +48,8 @@ const CountriesModule: FC = () => {
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const paginated = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
-  const getRegionLabel = (region: Region) => {
-    const key = region.toLowerCase() as "all" | "africa" | "americas" | "asia" | "europe" | "oceania" | "antarctic";
+  const getRegionLabel = (region: TRegion) => {
+    const key = region.toLowerCase() as Lowercase<TRegion>;
     return t(`regions.${key}`);
   };
 
@@ -175,7 +156,7 @@ const CountriesModule: FC = () => {
                           ? "bg-blue-600 text-white hover:bg-blue-700"
                           : "border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white"
                       }
-                      onClick={() => setPage(p as number)}
+                      onClick={() => setPage(p)}
                     >
                       {p}
                     </Button>

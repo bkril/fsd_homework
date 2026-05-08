@@ -2,13 +2,10 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { type FC, useMemo, useState } from "react";
+import { type FC, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import {
-  createSignUpSchema,
-  type TSignUpSchema,
-} from "@/app/modules/sign/sign.schema";
+import { signUpSchema, type TSignUpSchema } from "@/app/entities/api";
 import { InputComponent } from "@/app/shared/components/input";
 import { useUserStore } from "@/app/shared/store";
 import { authClient } from "@/pkg/auth/client";
@@ -20,25 +17,12 @@ import { Spinner } from "@/pkg/theme/ui/spinner";
 // component
 const RegisterComponent: FC = () => {
   const t = useTranslations("sign");
-  const tv = useTranslations("validation");
   const { setUserStore } = useUserStore();
 
   const [isPending, setIsPending] = useState(false);
 
-  const schema = useMemo(
-    () =>
-      createSignUpSchema({
-        email_invalid: tv("email_invalid"),
-        password_required: tv("password_required"),
-        name_min: tv("name_min"),
-        password_min: tv("password_min"),
-        password_max: tv("password_max"),
-      }),
-    [tv]
-  );
-
   const { control, handleSubmit } = useForm<TSignUpSchema>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(signUpSchema),
     defaultValues: { email: "", password: "", name: "" },
   });
 

@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { type FC } from "react";
 
-import { LanguageSwitcherComponent } from "@/app/features/language-switcher";
+import { LanguageSwitcherComponent } from "@/app/shared/components/language-switcher";
 import { IconAppLogo } from "@/app/shared/assets/icons/common";
 import { Link } from "@/pkg/locale";
 import { Button } from "@/pkg/theme/ui/button";

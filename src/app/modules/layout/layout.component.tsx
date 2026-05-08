@@ -12,7 +12,9 @@ interface IProps {
 // component
 const LayoutComponent: FC<Readonly<IProps>> = (props) => {
   const { children, header } = props;
+
   const pathname = usePathname();
+
   const isAuthPage = pathname.includes("/sign-in") || pathname.includes("/sign-up");
 
   // render

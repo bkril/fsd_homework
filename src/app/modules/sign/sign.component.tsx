@@ -27,6 +27,7 @@ interface IProps {
 // component
 const SignComponent: FC<Readonly<IProps>> = (props) => {
   const { variant } = props;
+
   const t = useTranslations("sign");
 
   const isLogin = variant === "login";
