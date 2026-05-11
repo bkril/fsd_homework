@@ -7,18 +7,18 @@ into a slice's internal files.
 
 ```ts
 // Consumer
-import { CountriesModule } from "@/app/modules/countries";
+import { <Module>Module } from "@/app/modules/<module>";
 
-// modules/countries/index.ts
-export { default as CountriesModule } from "./countries.module";
+// modules/<module>/index.ts
+export { default as <Module>Module } from "./<module>.module";
 ```
 
 ## Wrong
 
 ```ts
 // Bypasses the public API — fragile
-import { CountriesModule } from "@/app/modules/countries/countries.module";
-import { internalHelper } from "@/app/modules/countries/services/internal";
+import { <Module>Module } from "@/app/modules/<module>/<module>.module";
+import { internalHelper } from "@/app/modules/<module>/services/internal";
 ```
 
 ## Rules
@@ -37,11 +37,11 @@ own `index.ts`, and the slice's root file imports from the sub-element
 directly. There is no aggregator `elements/index.ts`:
 
 ```
-modules/countries/
-├── countries.module.tsx       imports from ./elements/country-card
+modules/<module>/
+├── <module>.module.tsx       imports from ./elements/<element>
 ├── elements/
-│   └── country-card/
-│       ├── country-card.component.tsx
+│   └── <element>/
+│       ├── <element>.component.tsx
 │       └── index.ts           ← public API of the sub-element
 └── index.ts                   ← public API of the slice
 ```
@@ -51,7 +51,7 @@ modules/countries/
 Types are re-exported with `type`:
 
 ```ts
-export { type ICountry, type ICountryDetail } from "./country.model";
+export { type I<Entity>, type I<Entity>Detail } from "./<entity>.model";
 ```
 
 This makes it explicit that the import is type-only and lets TypeScript strip

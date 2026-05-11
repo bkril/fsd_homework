@@ -54,11 +54,11 @@ tag if `$ARGUMENTS` is empty).
 ## Release notes — <range>
 
 ### ✨ Features
-- Add country filter by region (abc1234)
+- Add <entity> filter by <attribute> (abc1234)
 
 ### 🐛 Fixes
 - Handle empty search input (def5678)
 
 ### 🔧 Refactor
-- Extract pagination helper from countries module (ghi9012)
+- Extract pagination helper from <module> module (ghi9012)
 ```

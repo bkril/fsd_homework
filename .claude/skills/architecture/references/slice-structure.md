@@ -30,7 +30,7 @@ For entities the structure is slightly different — entities split across
 | File | Purpose |
 |------|---------|
 | `<slice>.module.tsx` / `<slice>.component.tsx` | The slice's root React component |
-| `<slice>.constant.ts` | Constants (regions, page sizes, hardcoded options) |
+| `<slice>.constant.ts` | Constants (option lists, page sizes, hardcoded values) |
 | `<slice>.schema.ts` | Validation schema if the slice owns one |
 | `elements/<name>/` | Private React sub-components used only by this slice |
 | `services/<action>.service.ts` | Pure functions: pagination math, formatters, mappers |
@@ -45,7 +45,7 @@ For entities the structure is slightly different — entities split across
 
 ```
 elements/
-├── country-card/
+├── <element>/
 │   └── index.ts
 └── index.ts        ← aggregator barrel — unnecessary indirection
 ```
@@ -53,7 +53,7 @@ elements/
 ✅ Do — import directly from the sub-element folder:
 
 ```ts
-import { CountryCardComponent } from "./elements/country-card";
+import { <Element>Component } from "./elements/<element>";
 ```
 
 ### Inline constants and helpers
@@ -62,11 +62,11 @@ import { CountryCardComponent } from "./elements/country-card";
 file. Extract them:
 
 ```
-modules/countries/
-├── countries.module.tsx
-├── countries.constant.ts      ← REGIONS, ITEMS_PER_PAGE, TRegion
+modules/<module>/
+├── <module>.module.tsx
+├── <module>.constant.ts      ← OPTIONS, ITEMS_PER_PAGE, T<Option>
 └── services/
-    └── pagination.service.ts  ← getPageNumbers, TPageItem
+    └── <action>.service.ts   ← pure helpers and their types
 ```
 
 ### Cross-slice imports

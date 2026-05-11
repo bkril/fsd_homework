@@ -20,29 +20,28 @@ public API.
 ## Pattern (static schema, hardcoded messages)
 
 ```ts
-// src/app/entities/api/auth/auth.schema.ts
+// src/app/entities/api/<domain>/<domain>.schema.ts
 import { z } from "zod";
 
-export const signInSchema = z.object({
-  email: z.email("Invalid email address"),
-  password: z.string().min(1, "Password is required"),
+export const <feature>Schema = z.object({
+  // fields with inline validation messages
 });
 
-export type TSignInSchema = z.infer<typeof signInSchema>;
+export type T<Feature>Schema = z.infer<typeof <feature>Schema>;
 ```
 
 ```tsx
-// src/app/modules/sign/elements/login/login.component.tsx
+// src/app/modules/<module>/elements/<element>/<element>.component.tsx
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { signInSchema, type TSignInSchema } from "@/app/entities/api";
+import { <feature>Schema, type T<Feature>Schema } from "@/app/entities/api";
 
-const LoginComponent: FC = () => {
-  const { control, handleSubmit } = useForm<TSignInSchema>({
-    resolver: zodResolver(signInSchema),
-    defaultValues: { email: "", password: "" },
+const <Element>Component: FC = () => {
+  const { control, handleSubmit } = useForm<T<Feature>Schema>({
+    resolver: zodResolver(<feature>Schema),
+    defaultValues: { /* matches schema shape */ },
   });
 
   const onSubmit = handleSubmit(async (data) => {
@@ -53,7 +52,7 @@ const LoginComponent: FC = () => {
     <form onSubmit={onSubmit}>
       <Controller
         control={control}
-        name="email"
+        name="<field>"
         render={({ field, fieldState }) => (
           <input {...field} aria-invalid={fieldState.invalid} />
         )}

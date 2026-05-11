@@ -13,12 +13,12 @@ Every async UI block has three orthogonal states. Render all three explicitly.
 ## Pattern
 
 ```tsx
-const { data, isLoading, isError, refetch } = useCountriesQuery();
+const { data, isLoading, isError, refetch } = use<Entities>Query();
 
 if (isError) {
   return (
     <div className="error-block">
-      <p>Could not load countries.</p>
+      <p>Could not load <entities>.</p>
       <button onClick={() => refetch()}>Try again</button>
     </div>
   );
@@ -37,14 +37,14 @@ if (isLoading) {
 if (data.length === 0) {
   return (
     <div className="empty-block">
-      <p>No countries match your filters.</p>
+      <p>No <entities> match your filters.</p>
     </div>
   );
 }
 
 return (
   <div className="grid">
-    {data.map((c) => <CountryCard key={c.id} country={c} />)}
+    {data.map((item) => <<Entity>Card key={item.id} <entity>={item} />)}
   </div>
 );
 ```

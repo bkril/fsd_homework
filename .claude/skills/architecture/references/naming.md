@@ -4,17 +4,17 @@
 
 | Type | Pattern | Example |
 |------|---------|---------|
-| React component | `*.component.tsx` | `country-card.component.tsx` |
-| Module root | `*.module.tsx` | `countries.module.tsx` |
-| Custom hook | `*.hook.ts` | `use-sign-out.hook.ts` |
-| Zustand store | `*.store.ts` | `user.store.ts` |
-| API functions | `*.api.ts` | `country.api.ts` |
-| Query hook | `*.query.ts` | `country.query.ts` |
-| Mutation hook | `*.mutation.ts` | `sign-in.mutation.ts` |
-| Schema (validation) | `*.schema.ts` | `auth.schema.ts` |
-| TypeScript model | `*.model.ts` | `country.model.ts` |
-| Constants | `*.constant.ts` | `regions.constant.ts` |
-| Service / helper | `*.service.ts` | `pagination.service.ts` |
+| React component | `*.component.tsx` | `<element>.component.tsx` |
+| Module root | `*.module.tsx` | `<module>.module.tsx` |
+| Custom hook | `*.hook.ts` | `use-<action>.hook.ts` |
+| Zustand store | `*.store.ts` | `<entity>.store.ts` |
+| API functions | `*.api.ts` | `<entity>.api.ts` |
+| Query hook | `*.query.ts` | `<entity>.query.ts` |
+| Mutation hook | `*.mutation.ts` | `<action>.mutation.ts` |
+| Schema (validation) | `*.schema.ts` | `<feature>.schema.ts` |
+| TypeScript model | `*.model.ts` | `<entity>.model.ts` |
+| Constants | `*.constant.ts` | `<slice>.constant.ts` |
+| Service / helper | `*.service.ts` | `<action>.service.ts` |
 | Barrel | `index.ts` | `index.ts` |
 
 All filenames use **kebab-case**.
@@ -24,26 +24,26 @@ All filenames use **kebab-case**.
 All directories use **kebab-case**:
 
 ```
-modules/country-detail/
-features/language-switcher/
-entities/api/sign-in/
+modules/<module>/
+features/<feature>/
+entities/api/<entity>/
 ```
 
 ## TypeScript identifiers
 
 | Category | Prefix | Example |
 |----------|--------|---------|
-| Interface | `I` | `ICountry`, `IProps` |
-| Type alias | `T` | `TSignInSchema` |
-| Enum | `E` | `EAssetImage` |
-| Store state interface | `IState` | `IUserState` |
-| Store full interface | `IStore extends IState` | `IUserStore` |
-| Query key constant | `<RESOURCE>_QUERY_KEY` | `COUNTRIES_QUERY_KEY` |
+| Interface | `I` | `I<Entity>`, `IProps` |
+| Type alias | `T` | `T<Feature>Schema` |
+| Enum | `E` | `E<Name>` |
+| Store state interface | `IState` | `I<Entity>State` |
+| Store full interface | `IStore extends IState` | `I<Entity>Store` |
+| Query key constant | `<RESOURCE>_QUERY_KEY` | `<ENTITY>_QUERY_KEY` |
 
 Component identifiers use **PascalCase** and end with the layer suffix:
-- `CountryCardComponent` for `*.component.tsx`
-- `CountriesModule` for `*.module.tsx`
-- `HeaderWidget` (or `HeaderComponent` when widgets use `*.component.tsx`)
+- `<Element>Component` for `*.component.tsx`
+- `<Module>Module` for `*.module.tsx`
+- `<Widget>Widget` (or `<Widget>Component` when widgets use `*.component.tsx`)
 
 ## Imports
 
@@ -56,7 +56,7 @@ Component identifiers use **PascalCase** and end with the layer suffix:
 import { useState } from "react";
 import { z } from "zod";
 
-import { useUserStore } from "@/app/shared/store";
+import { use<Entity>Store } from "@/app/shared/store";
 import { Button } from "@/pkg/theme/ui/button";
 
 import { LocalHelper } from "./local-helper";

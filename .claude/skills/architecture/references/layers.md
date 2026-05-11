@@ -27,8 +27,8 @@ src/pkg/       third-party integration adapters (auth, db, i18n, theme)
 - A layer cannot import from layers above it.
 - Sibling slices inside the same layer cannot import each other.
 
-Example: `modules/countries/` cannot import from `modules/sign/`. Compose them
-at the page level (the routing layer).
+Example: `modules/<module-a>/` cannot import from `modules/<module-b>/`.
+Compose them at the page level (the routing layer).
 
 ## Choosing the right layer
 
@@ -47,7 +47,7 @@ at the page level (the routing layer).
 
 Lower layers know nothing about higher layers. This means:
 - `shared/components/Button` can be reused anywhere without coupling.
-- `entities/user/` knows nothing about which module displays the user — you
-  can drop the entity into a different module without changes.
+- `entities/<entity>/` knows nothing about which module displays it — you can
+  drop the entity into a different module without changes.
 - Pages compose features and modules; modules compose features and entities.
 - Cycles are impossible by construction.
