@@ -1,0 +1,20 @@
+/* Global styles. Imported once at the app root. */
+
+/* Add CSS variables, design tokens, and base resets here. */
+
+:root {
+  --color-background: #ffffff;
+  --color-foreground: #111827;
+  --radius: 0.5rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  margin: 0;
+}

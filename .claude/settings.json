@@ -2,15 +2,9 @@
   "permissions": {
     "defaultMode": "plan",
     "allow": [
-      "Bash(yarn dev)",
-      "Bash(yarn build)",
-      "Bash(yarn start)",
-      "Bash(yarn lint)",
-      "Bash(yarn test:e2e)",
-      "Bash(yarn test:e2e:ui)",
+      "Bash(ls *)",
       "Bash(find *)",
       "Bash(grep *)",
-      "Bash(ls *)",
       "Bash(cat *)",
       "Bash(git status)",
       "Bash(git log *)",
@@ -33,14 +27,18 @@
     ]
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          { "type": "command", "command": "bash .claude/hooks/session-start-status.sh" }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash(git commit*)",
         "hooks": [
-          {
-            "type": "command",
-            "command": "yarn lint > /dev/null 2>&1 || (echo 'ESLint failed. Fix errors before committing: yarn lint' >&2; exit 2)"
-          }
+          { "type": "command", "command": "bash .claude/hooks/pre-commit-lint.sh" }
         ]
       }
     ],
@@ -48,10 +46,7 @@
       {
         "matcher": "Edit|Write",
         "hooks": [
-          {
-            "type": "command",
-            "command": "FILE=$(cat | jq -r '.tool_input.file_path // \"\"' 2>/dev/null); if [[ \"$FILE\" =~ \\.(ts|tsx)$ ]]; then yarn lint \"$FILE\" 2>&1 || exit 1; fi"
-          }
+          { "type": "command", "command": "bash .claude/hooks/lint-staged.sh" }
         ]
       }
     ]
