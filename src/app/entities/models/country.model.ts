@@ -1,3 +1,6 @@
+export const COUNTRIES_QUERY_KEY = ["countries"] as const;
+export type TCountriesQueryKey = typeof COUNTRIES_QUERY_KEY;
+
 // Country list item (used in the list page — filtered fields)
 export interface ICountry {
   name: {

@@ -9,10 +9,15 @@ export function useInitUser() {
   const { setUserStore } = useUserStore();
 
   useEffect(() => {
-    authClient.getSession().then(({ data }) => {
-      if (data?.user) {
-        setUserStore({ user: data.user });
-      }
-    });
+    authClient
+      .getSession()
+      .then(({ data }) => {
+        if (data?.user) {
+          setUserStore({ user: data.user });
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to init user session", error);
+      });
   }, [setUserStore]);
 }

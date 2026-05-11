@@ -2,7 +2,7 @@ export {
   fetchAllCountries,
   fetchCountryByCode,
   useCountriesQuery,
-  COUNTRIES_QUERY_KEY,
+  countriesQueryOptions,
 } from "./country";
 
 export {

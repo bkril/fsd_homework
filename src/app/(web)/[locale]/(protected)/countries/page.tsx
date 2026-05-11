@@ -1,6 +1,6 @@
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getQueryClient } from "@/pkg/rest-api";
-import { fetchAllCountries, COUNTRIES_QUERY_KEY } from "@/app/entities/api";
+import { countriesQueryOptions } from "@/app/entities/api";
 import { CountriesModule } from "@/app/modules/countries";
 
 export const revalidate = 3600;
@@ -14,10 +14,11 @@ export const metadata = {
 export default async function CountriesPage() {
   const queryClient = getQueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: COUNTRIES_QUERY_KEY,
-    queryFn: fetchAllCountries,
-  });
+  try {
+    await queryClient.prefetchQuery(countriesQueryOptions);
+  } catch (error) {
+    console.error("Countries prefetch failed, falling back to client fetch", error);
+  }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
