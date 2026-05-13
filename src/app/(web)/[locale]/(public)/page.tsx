@@ -9,7 +9,7 @@ interface IProps {
 }
 
 // component
-const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
+const Page: NextPage<Readonly<IProps>> = async (props) => {
   const { params } = props;
 
   const { locale } = await params;

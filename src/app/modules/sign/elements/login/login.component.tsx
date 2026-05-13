@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { type FC, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import { signInSchema, type TSignInSchema } from "@/app/entities/api";
+import { signInSchema, type TSignInSchema } from "@/app/entities/models";
 import { InputComponent } from "@/app/shared/components/input";
 import { useUserStore } from "@/app/shared/store";
 import { authClient } from "@/pkg/auth/client";
