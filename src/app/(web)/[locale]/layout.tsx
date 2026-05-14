@@ -7,9 +7,14 @@ import { type FC, type ReactNode } from "react";
 import { LayoutComponent } from "@/app/modules/layout";
 import { EAssetImage } from "@/app/shared/interfaces";
 import { HeaderComponent } from "@/app/widgets/header";
+import { fontPrimary, fontSecondary } from "@/config/fonts";
 import { envClient } from "@/config/env";
 import { routing } from "@/pkg/locale";
 import { RestApiProvider } from "@/pkg/rest-api";
+import { ThemeProvider } from "@/pkg/theme";
+import { Toaster } from "@/pkg/theme/ui/sonner";
+
+import "@/config/styles/global.css";
 
 // interface
 interface IProps {
@@ -76,11 +81,21 @@ const LocaleLayout: FC<Readonly<IProps>> = async (props) => {
 
   // return
   return (
-    <NextIntlClientProvider>
-      <RestApiProvider>
-        <LayoutComponent header={<HeaderComponent />}>{children}</LayoutComponent>
-      </RestApiProvider>
-    </NextIntlClientProvider>
+    <html suppressHydrationWarning>
+      <body
+        className={`${fontPrimary.className} ${fontSecondary.variable} antialiased`}
+        suppressHydrationWarning
+      >
+        <ThemeProvider>
+          <NextIntlClientProvider>
+            <RestApiProvider>
+              <LayoutComponent header={<HeaderComponent />}>{children}</LayoutComponent>
+            </RestApiProvider>
+          </NextIntlClientProvider>
+          <Toaster position="top-center" duration={3000} />
+        </ThemeProvider>
+      </body>
+    </html>
   );
 };
 
